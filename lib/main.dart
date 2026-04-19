@@ -161,12 +161,17 @@ class _HomeShellState extends State<HomeShell> with TickerProviderStateMixin {
 
           // Bottom navigation — frosted glassmorphism pill
           Positioned(
-            left: 20,
-            right: 20,
+            left: 0,
+            right: 0,
             bottom: 76,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(24),
-              child: BackdropFilter(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
                 child: Container(
                   height: 62,
@@ -195,13 +200,8 @@ class _HomeShellState extends State<HomeShell> with TickerProviderStateMixin {
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildNavItem(int index, IconData icon, String label) {
-    final isSelected = _currentIndex == index;
+            ),
+            ),
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final selectedColor = Theme.of(context).primaryColor;
 
