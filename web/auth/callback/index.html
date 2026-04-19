@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cassiel Drive — Authentication</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0a0a0a; color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      height: 100vh; overflow: hidden;
+    }
+    .card {
+      text-align: center; padding: 48px 40px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 24px; max-width: 420px; width: 90%;
+      backdrop-filter: blur(20px);
+    }
+    .icon {
+      width: 64px; height: 64px; margin: 0 auto 24px;
+      border-radius: 16px; display: flex; align-items: center;
+      justify-content: center; font-size: 28px;
+    }
+    .icon.success { background: linear-gradient(135deg, #25A7DA, #3CC6F5); }
+    .icon.error { background: linear-gradient(135deg, #FF5252, #FF7043); }
+    .icon.loading {
+      background: rgba(37,167,218,0.2); border: 3px solid rgba(37,167,218,0.3);
+      border-top-color: #25A7DA; animation: spin 0.8s linear infinite;
+    }
+    h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    p { color: #999; font-size: 14px; line-height: 1.5; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon loading" id="statusIcon"></div>
+    <h1 id="statusTitle">Authenticating...</h1>
+    <p id="statusMessage">Please wait while we complete the sign-in.</p>
+  </div>
+  <script>
+    (function() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('code');
+      const error = params.get('error');
+
+      const icon = document.getElementById('statusIcon');
+      const title = document.getElementById('statusTitle');
+      const msg = document.getElementById('statusMessage');
+
+      if (error) {
+        icon.className = 'icon error';
+        icon.textContent = '✗';
+        title.textContent = 'Authentication Failed';
+        msg.textContent = 'Error: ' + error + '. Please close this window and try again.';
+        return;
+      }
+
+      if (code) {
+        // Send the code back to the opener (main app window)
+        if (window.opener) {
+          window.opener.postMessage({ cassiel_oauth_code: code }, '*');
+          icon.className = 'icon success';
+          icon.textContent = '✓';
+          title.textContent = 'Success!';
+          msg.textContent = 'You can close this window. Returning to Cassiel Drive...';
+          setTimeout(function() { window.close(); }, 2000);
+        } else {
+          icon.className = 'icon success';
+          icon.textContent = '✓';
+          title.textContent = 'Authenticated!';
+          msg.textContent = 'Please close this tab and return to Cassiel Drive.';
+        }
+      } else {
+        icon.className = 'icon error';
+        icon.textContent = '?';
+        title.textContent = 'No Authorization Code';
+        msg.textContent = 'Something went wrong. Please close this window and try again.';
+      }
+    })();
+  </script>
+</body>
+</html>

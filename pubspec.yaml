@@ -1,0 +1,78 @@
+name: cassiel_drive
+description: "Cassiel Drive — Multi-account Google Drive Storage Manager"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Google Services
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
+  http: ^1.3.0
+
+  # State Management
+  provider: ^6.1.2
+
+  # Storage & Security
+  flutter_secure_storage: ^9.2.4
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.5
+
+  # Encryption
+  encrypt: ^5.0.3
+  crypto: ^3.0.6
+  pointycastle: ^3.9.1
+
+  # UI
+  google_fonts: ^6.2.1
+  cached_network_image: ^3.4.1
+  percent_indicator: ^4.2.3
+  shimmer: ^3.0.0
+  flutter_staggered_animations: ^1.1.1
+  lottie: ^3.3.1
+
+  # File Handling
+  file_picker: ^8.1.7
+  open_file: ^3.5.10
+  mime: ^2.0.0
+  share_plus: ^10.1.4
+  uuid: ^4.5.1
+
+  # Connectivity
+  connectivity_plus: ^6.1.1
+  url_launcher: ^6.3.2
+  url_launcher_windows: ^3.1.5
+  pdf: ^3.11.3
+  web: ^1.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+    - assets/cassieldrive.png
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600

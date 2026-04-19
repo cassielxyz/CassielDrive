@@ -1,0 +1,21 @@
+{
+  "buildCommand": "flutter/bin/flutter build web --release --base-href /",
+  "outputDirectory": "build/web",
+  "installCommand": "git clone https://github.com/flutter/flutter.git --depth 1 -b stable && flutter/bin/flutter doctor && flutter/bin/flutter pub get",
+  "framework": null,
+  "rewrites": [
+    { "source": "/auth/callback", "destination": "/auth/callback/index.html" },
+    { "source": "/setup", "destination": "/setup/index.html" },
+    { "source": "/setup/(.*)", "destination": "/setup/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    }
+  ]
+}

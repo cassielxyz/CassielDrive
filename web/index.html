@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Cassiel Drive — Multi-account Google Drive Storage Manager. Combine multiple Google Drive accounts into one unified cloud.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Cassiel Drive">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>Cassiel Drive</title>
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { background: #0a0a0a; margin: 0; overflow: hidden; }
+    .loading {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100vh; font-family: 'Inter', sans-serif;
+    }
+    .loading .spinner {
+      width: 48px; height: 48px; border: 3px solid rgba(37,167,218,0.2);
+      border-top-color: #25A7DA; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    .loading p { color: #666; margin-top: 16px; font-size: 14px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Loading Cassiel Drive...</p>
+  </div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

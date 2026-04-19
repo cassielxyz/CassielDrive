@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cassiel Drive — Setup Wizard</title>
+  <meta name="description" content="Interactive setup wizard to configure Google Cloud Console OAuth for Cassiel Drive">
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+      <div class="logo-icon">☁</div>
+      <span>Cassiel Drive</span>
+    </div>
+    <div class="header-badge">Setup Wizard</div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-steps" id="progressSteps"></div>
+  </div>
+
+  <!-- Wizard Container -->
+  <main class="wizard-container" id="wizardContainer">
+    <!-- Step 1: Welcome -->
+    <section class="step active" data-step="0">
+      <div class="step-icon">🚀</div>
+      <h1>Welcome to Cassiel Drive Setup</h1>
+      <p class="step-desc">This wizard will guide you through creating Google Cloud OAuth credentials so Cassiel Drive can securely access your Google Drive accounts.</p>
+      <div class="info-card">
+        <div class="info-icon">⏱</div>
+        <div>
+          <strong>Takes about 5 minutes</strong>
+          <p>You'll need a Google account and a web browser. No coding required.</p>
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🔒</div>
+        <div>
+          <strong>Your credentials stay private</strong>
+          <p>Your Client ID and Secret are entered only in your app. This wizard runs entirely in your browser — nothing is sent to any server.</p>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="nextStep()">Let's Get Started →</button>
+    </section>
+
+    <!-- Step 2: Create Google Cloud Project -->
+    <section class="step" data-step="1">
+      <div class="step-icon">☁️</div>
+      <h1>Step 1: Create a Google Cloud Project</h1>
+      <p class="step-desc">First, we need a Google Cloud project to hold your OAuth credentials.</p>
+      <div class="instruction-list">
+        <div class="instruction">
+          <div class="instruction-num">1</div>
+          <div>
+            <p>Click the button below to open the Google Cloud Console:</p>
+            <a href="https://console.cloud.google.com/projectcreate" target="_blank" class="btn-link">
+              Open Google Cloud Console ↗
+            </a>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">2</div>
+          <div>
+            <p>Set the <strong>Project name</strong> to:</p>
+            <div class="copy-field">
+              <code>Cassiel Drive</code>
+              <button class="btn-copy" onclick="copyText('Cassiel Drive', this)">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">3</div>
+          <div><p>Leave <strong>Organization</strong> as "No organization" and click <strong>Create</strong>.</p></div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">4</div>
+          <div><p>Wait a few seconds for the project to be created, then make sure it's selected in the top dropdown.</p></div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" onclick="nextStep()">Done — Next Step →</button>
+      </div>
+    </section>
+
+    <!-- Step 3: Enable APIs -->
+    <section class="step" data-step="2">
+      <div class="step-icon">⚡</div>
+      <h1>Step 2: Enable Google Drive API</h1>
+      <p class="step-desc">Enable the APIs that Cassiel Drive needs to access your files.</p>
+      <div class="instruction-list">
+        <div class="instruction">
+          <div class="instruction-num">1</div>
+          <div>
+            <p>Click below to enable the <strong>Google Drive API</strong>:</p>
+            <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" class="btn-link">
+              Enable Google Drive API ↗
+            </a>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">2</div>
+          <div><p>Click the blue <strong>"Enable"</strong> button on the page that opens.</p></div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">3</div>
+          <div>
+            <p>(Optional) Also enable the <strong>People API</strong> for profile pictures:</p>
+            <a href="https://console.cloud.google.com/apis/library/people.googleapis.com" target="_blank" class="btn-link">
+              Enable People API ↗
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" onclick="nextStep()">APIs Enabled — Next →</button>
+      </div>
+    </section>
+
+    <!-- Step 4: OAuth Consent Screen -->
+    <section class="step" data-step="3">
+      <div class="step-icon">📋</div>
+      <h1>Step 3: Configure OAuth Consent Screen</h1>
+      <p class="step-desc">This screen tells Google what your app is called and who can use it.</p>
+      <div class="instruction-list">
+        <div class="instruction">
+          <div class="instruction-num">1</div>
+          <div>
+            <p>Open the OAuth consent screen page:</p>
+            <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" class="btn-link">
+              Open Consent Screen ↗
+            </a>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">2</div>
+          <div><p>Select <strong>"External"</strong> as the User Type, then click <strong>Create</strong>.</p></div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">3</div>
+          <div>
+            <p>Fill in these fields:</p>
+            <table class="field-table">
+              <tr><td>App name</td><td><div class="copy-field"><code>Cassiel Drive</code><button class="btn-copy" onclick="copyText('Cassiel Drive', this)">Copy</button></div></td></tr>
+              <tr><td>User support email</td><td>Your Gmail address</td></tr>
+              <tr><td>Developer email</td><td>Your Gmail address</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">4</div>
+          <div><p>Click <strong>Save and Continue</strong> through the remaining steps (Scopes, Test Users). We'll add test users next.</p></div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" onclick="nextStep()">Consent Screen Done →</button>
+      </div>
+    </section>
+
+    <!-- Step 5: Add Test Users -->
+    <section class="step" data-step="4">
+      <div class="step-icon">👥</div>
+      <h1>Step 4: Add Test Users</h1>
+      <p class="step-desc">While your app is in "Testing" mode, only emails listed here can sign in.</p>
+      <div class="warning-card">
+        <div class="info-icon">⚠️</div>
+        <div>
+          <strong>This is why "Access Blocked" happens!</strong>
+          <p>If the Gmail you want to sign in with is NOT listed as a test user, Google will block access. Add ALL Gmail accounts you plan to use.</p>
+        </div>
+      </div>
+      <div class="instruction-list">
+        <div class="instruction">
+          <div class="instruction-num">1</div>
+          <div>
+            <p>Go to the Test Users section:</p>
+            <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" class="btn-link">
+              Open Consent Screen ↗
+            </a>
+            <p class="sub-note">Scroll down to "Test users" section, or click on the "Test users" tab.</p>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">2</div>
+          <div>
+            <p>Click <strong>"+ ADD USERS"</strong> and enter the Gmail addresses you want to use with Cassiel Drive. Add each one on a new line.</p>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">3</div>
+          <div>
+            <p>Click <strong>Save</strong>. <em>Wait 2-5 minutes</em> for changes to take effect.</p>
+          </div>
+        </div>
+      </div>
+      <div class="email-validator">
+        <h3>🔍 Validate Your Email</h3>
+        <p>Enter the email you'll sign in with to check the format:</p>
+        <div class="input-row">
+          <input type="email" id="testEmail" placeholder="you@gmail.com" oninput="validateEmail()">
+          <div class="validation-result" id="emailResult"></div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" onclick="nextStep()">Users Added — Next →</button>
+      </div>
+    </section>
+
+    <!-- Step 6: Create Credentials -->
+    <section class="step" data-step="5">
+      <div class="step-icon">🔑</div>
+      <h1>Step 5: Create OAuth Credentials</h1>
+      <p class="step-desc">Now create the Client ID and Secret that Cassiel Drive will use.</p>
+      <div class="warning-card critical">
+        <div class="info-icon">🚨</div>
+        <div>
+          <strong>CRITICAL: Choose "Desktop app" type!</strong>
+          <p>If you select "Web application" or "Android", your app will get "Access Blocked". The <strong>Desktop app</strong> type is required for Cassiel Drive's authentication flow.</p>
+        </div>
+      </div>
+      <div class="instruction-list">
+        <div class="instruction">
+          <div class="instruction-num">1</div>
+          <div>
+            <p>Open the Credentials page:</p>
+            <a href="https://console.cloud.google.com/apis/credentials" target="_blank" class="btn-link">
+              Open Credentials Page ↗
+            </a>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">2</div>
+          <div><p>Click <strong>"+ CREATE CREDENTIALS"</strong> → select <strong>"OAuth client ID"</strong>.</p></div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">3</div>
+          <div>
+            <p>Set Application type to:</p>
+            <div class="type-selector">
+              <div class="type-option correct">
+                <div class="type-badge">✓ CORRECT</div>
+                <strong>Desktop app</strong>
+                <p>Allows loopback redirect</p>
+              </div>
+              <div class="type-option wrong">
+                <div class="type-badge">✗ WRONG</div>
+                <strong>Web application</strong>
+                <p>Will cause "Access Blocked"</p>
+              </div>
+              <div class="type-option wrong">
+                <div class="type-badge">✗ WRONG</div>
+                <strong>Android</strong>
+                <p>Uses different flow</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">4</div>
+          <div>
+            <p>Set the name to:</p>
+            <div class="copy-field">
+              <code>Cassiel Drive Desktop</code>
+              <button class="btn-copy" onclick="copyText('Cassiel Drive Desktop', this)">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="instruction">
+          <div class="instruction-num">5</div>
+          <div><p>Click <strong>Create</strong>. A dialog will show your Client ID and Client Secret.</p></div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" onclick="nextStep()">Credentials Created →</button>
+      </div>
+    </section>
+
+    <!-- Step 7: Enter & Validate Credentials -->
+    <section class="step" data-step="6">
+      <div class="step-icon">✅</div>
+      <h1>Step 6: Enter Your Credentials</h1>
+      <p class="step-desc">Paste your Client ID and Secret below to validate them. These stay in your browser — nothing is sent to any server.</p>
+      <div class="credential-form">
+        <div class="field-group">
+          <label>Client ID</label>
+          <div class="input-with-btn">
+            <input type="text" id="clientIdInput" placeholder="xxxxx.apps.googleusercontent.com" oninput="validateCredentials()">
+            <button class="btn-copy" onclick="copyText(document.getElementById('clientIdInput').value, this)">Copy</button>
+          </div>
+          <div class="field-hint" id="clientIdHint"></div>
+        </div>
+        <div class="field-group">
+          <label>Client Secret</label>
+          <div class="input-with-btn">
+            <input type="text" id="clientSecretInput" placeholder="GOCSPX-xxxxxxxxxxxx" oninput="validateCredentials()">
+            <button class="btn-copy" onclick="copyText(document.getElementById('clientSecretInput').value, this)">Copy</button>
+          </div>
+          <div class="field-hint" id="clientSecretHint"></div>
+        </div>
+        <div class="validation-box" id="credentialValidation"></div>
+      </div>
+
+      <div class="qr-section" id="qrSection" style="display:none;">
+        <h3>📱 Scan to Import on Mobile</h3>
+        <p>Open Cassiel Drive on your phone → Settings → Scan QR Code</p>
+        <div class="qr-code" id="qrCode"></div>
+        <p class="sub-note">Or manually paste the Client ID and Secret in the app's Settings screen.</p>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <button class="btn-primary" onclick="nextStep()">Continue →</button>
+      </div>
+    </section>
+
+    <!-- Step 8: Complete -->
+    <section class="step" data-step="7">
+      <div class="step-icon celebration">🎉</div>
+      <h1>Setup Complete!</h1>
+      <p class="step-desc">Your Google Cloud OAuth is configured. Here's what to do next:</p>
+      <div class="checklist">
+        <div class="check-item done">
+          <span class="check">✓</span>
+          <span>Google Cloud Project created</span>
+        </div>
+        <div class="check-item done">
+          <span class="check">✓</span>
+          <span>Google Drive API enabled</span>
+        </div>
+        <div class="check-item done">
+          <span class="check">✓</span>
+          <span>OAuth consent screen configured</span>
+        </div>
+        <div class="check-item done">
+          <span class="check">✓</span>
+          <span>Test users added</span>
+        </div>
+        <div class="check-item done">
+          <span class="check">✓</span>
+          <span>Desktop OAuth credentials created</span>
+        </div>
+      </div>
+      <div class="next-steps">
+        <h3>Next Steps in Cassiel Drive:</h3>
+        <div class="instruction-list compact">
+          <div class="instruction">
+            <div class="instruction-num">1</div>
+            <div><p>Open <strong>Cassiel Drive</strong> → Go to <strong>Settings</strong> (⚙️ icon)</p></div>
+          </div>
+          <div class="instruction">
+            <div class="instruction-num">2</div>
+            <div><p>Paste your <strong>Client ID</strong> and <strong>Client Secret</strong></p></div>
+          </div>
+          <div class="instruction">
+            <div class="instruction-num">3</div>
+            <div><p>Tap <strong>Save Settings</strong></p></div>
+          </div>
+          <div class="instruction">
+            <div class="instruction-num">4</div>
+            <div><p>Tap <strong>"Add Google Account"</strong> and sign in!</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="prevStep()">← Back</button>
+        <a href="../" class="btn-primary" style="text-decoration:none;">Open Cassiel Drive →</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Cassiel Drive v2.0 — Your credentials never leave your browser.</p>
+  </footer>
+
+  <script src="wizard.js"></script>
+</body>
+</html>
