@@ -239,8 +239,9 @@ class _VaultScreenState extends State<VaultScreen>
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildUnlockedVault(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;

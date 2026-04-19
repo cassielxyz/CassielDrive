@@ -200,8 +200,16 @@ class _HomeShellState extends State<HomeShell> with TickerProviderStateMixin {
               ),
             ),
           ),
+              ),
             ),
-            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildNavItem(int index, IconData icon, String label) {
+    final isSelected = _currentIndex == index;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final selectedColor = Theme.of(context).primaryColor;
 
