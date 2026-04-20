@@ -13,9 +13,6 @@
 
 <br/>
 
-<p align="center">
-  <img src="website/dashboard.png" alt="Cassiel Drive UI Preview" width="800" style="border-radius: 20px; box-shadow: 0 10px 30px rgba(37, 167, 218, 0.2);"/>
-</p>
 
 ---
 
