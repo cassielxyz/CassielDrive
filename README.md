@@ -37,8 +37,7 @@ To maximize the visual real estate for your file grids and folder layouts, we el
 ### 🌌 OLED-Optimized Dynamic Themes & 3D CSS Rendering
 CassielDrive is engineered around a deep-dark, high-contrast palette specifically tailored for OLED displays. This includes frosted glassmorphism containers, neon accents, and fluid 120Hz gesture animations. Furthermore, our standalone promotional website pushes the limits of modern web design with a **pure HTML/CSS 3D device mockup**. By leveraging advanced CSS `transform-style: preserve-3d` properties and keyframe animations, the site realistically renders a floating, rotating 3D phone model—delivering a wildly immersive visual hook without slowing down the page with heavy image assets.
 
-### 🌐 Advanced Dual-Routing Vercel Pipeline
-Deploying a single-page application (SPA) alongside a normal static website on the same domain usually requires complex Next.js setups. CassielDrive achieves this using a highly customized `vercel.json` deployment pipeline. When Pushed to GitHub, Vercel natively compiles the Flutter app into a hash-routed SPA serving on the root `/#/home`. Simultaneously, our deployment script injects the lightweight 3D marketing site directly into Flutter's `build/web/welcome/` directory. Vercel then transparently maps these custom subpaths, serving both experiences seamlessly on the exact same `cassieldrive.vercel.app` domain.
+
 
 ## 🛠️ Step-by-Step Setup & Authentication
 
