@@ -20,13 +20,25 @@
   CassielDrive isn't just another file manager. It's a visually stunning, highly optimized alternative client for <b>Google Drive</b>. Designed with a pure OLED dark UI, glassmorphism layers, and silky 60-120 FPS transitions, it completely redesigns how you interact with your personal cloud. Watch your files orbit in our signature <b>Storage Galaxy</b> and manage multiple Google Accounts with zero limits.
 </p>
 
-## ?? Core Features & Advantages
+## 🌟 Core Features & Architectural Highlights
 
-*   <span style="color:#25a7da"><b>?? Unlimited Cloud Expansion:</b></span> Log into multiple Google Drive accounts simultaneously. CassielDrive seamlessly aggregates your storage, letting you effortlessly hop between accounts to unlock practically unlimited cloud storage.
-*   <span style="color:#ff4b4b"><b>?? Local AES-256 Vault:</b></span> Privacy is paramount. The Cassiel Vault provides military-grade AES-256 local encryption for your most sensitive documents before they ever reach the cloud. 
-*   <span style="color:#a74bff"><b>?? OLED-Optimized Dynamic Themes:</b></span> Beautiful deep-dark layouts tailored for OLED displays. Features dynamic blurred ambient background particles, glassmorphism containers, and high-contrast neon accents.
-*   <span style="color:#4bff80"><b>? Buttery Smooth UI & Performance:</b></span> Built entirely in Flutter, delivering native 60-120 FPS gesture routing, buttery smooth page transitions, and intelligent responsive layouts for Desktop monitors and mobile screens alike.
-*   <span style="color:#ffb84b"><b>?? Seamless Cross-Platform Connectivity:</b></span> Run it natively on your Android device (APK) or access it instantly via the Web App (PWA). Your data, perfectly synced everywhere.
+### 🚀 Unlimited Cloud Expansion & Aggregation
+Log into multiple Google Drive accounts simultaneously. CassielDrive bypasses standard storage limits by seamlessly aggregating your storage. Effortlessly hop between linked accounts, treating multiple 15GB limits as one massive, unified cloud drive.
+
+### 🔒 Military-Grade AES-256 Secure Vault
+Privacy is absolute. The internal Cassiel Vault provides military-grade **AES-256 local encryption** for your most sensitive files. Before a file ever touches the cloud, it is encrypted locally on your device, ensuring total privacy even if your cloud provider is compromised.
+
+### 💻 Widescreen Desktop Optimization & Adaptive UI
+Unlike standard mobile ports, CassielDrive respects widescreen web and desktop environments. Complete with strict `800px` `maxWidth` constraints natively coded into the UI, the Web App prevents awkward ultra-wide stretching, guaranteeing a focused, premium layout whether on a 4K monitor or an Android screen.
+
+### 🧭 Minimalist Floating Navigation Pill
+We ditched the heavy, screen-consuming bottom navigation bars. CassielDrive utilizes a modern, non-obstructive **Top-Right Floating Navigation Pill**. It stays out of your way, maximizing the screen real-estate for your files and folder grids. 
+
+### 🌌 OLED-Optimized Dynamic Themes & 3D CSS
+Experience deep-dark layouts hand-tailored for OLED displays, featuring dynamic ambient backgrounds and frosted glassmorphism containers. Beyond the app, our standalone promotional site features an immersive **pure HTML/CSS 3D device mockup**, completely bypassing the need for heavy image assets while delivering buttery smooth 120Hz keyframe animations.
+
+### 🌐 Advanced Dual-Routing Vercel Deployment
+Through a highly customized `vercel.json` deployment pipeline, CassielDrive dynamically supports dual-hosting on a single domain. The Flutter Web App runs natively on the root `/#/home` acting as a localized SPA (Single Page Application), while our lightweight 3D marketing website is compiled and injected directly into the Flutter static build directory to be seamlessly served alongside it on the `/welcome/` subpath.
 
 ## ?? SEO & Discoverability
 *Keywords:* Google Drive Client, Unlimited Cloud Storage, Flutter File Manager, AES-256 Encryption, Self-Hosted Cloud, Open Source Flutter App, Android Drive App, Web Storage App, CassielDrive, OAuth2 Cloud Integration
@@ -80,5 +92,5 @@ This project is structured for seamless automated deployments. CassielDrive supp
 <div align="center">
   <b>Made with ?? by Cassiel</b>
   <br/>
-  <small>Open Source � Transparent � Limitless</small>
+  <small>Open Source � Transparent � Limitless</small>
 </div>
