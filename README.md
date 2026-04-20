@@ -85,6 +85,12 @@ flutter build apk --release
 
 This project is structured for seamless automated deployments. CassielDrive supports **Vercel Integration** out of the box. By pushing your code changes to the main branch, Vercel leverages the included ercel.json configuration to automatically trigger \lutter build web\ and instantly deploy your latest UI updates worldwide.
 
+
+## 🔍 SEO & Discoverability
+*Keywords:* Google Drive Client, Unlimited Cloud Storage, Flutter File Manager, AES-256 Encryption, Self-Hosted Cloud, Open Source Flutter App, Android Drive App, Web Storage App, CassielDrive, OAuth2 Cloud Integration, Vercel Deployment, Secure Cloud Vault
+
+**Hashtags:** #GoogleDrive #CloudStorage #FlutterDev #OpenSource #AESEncryption #Privacy #WebDeployment #AndroidApp #UIUXDesign #CassielDrive
+
 ---
 
 <br/>
