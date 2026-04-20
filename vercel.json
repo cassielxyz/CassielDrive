@@ -1,13 +1,12 @@
 {
-  "buildCommand": "flutter/bin/flutter build web --release --base-href /app/ && mkdir -p build/temp_app && mv build/web/* build/temp_app/ && mkdir -p build/web/app && mv build/temp_app/* build/web/app/ && cp -r website/* build/web/",
+  "buildCommand": "flutter/bin/flutter build web --release && cp -r website build/web/welcome",
   "outputDirectory": "build/web",
   "installCommand": "git clone https://github.com/flutter/flutter.git --depth 1 -b stable && flutter/bin/flutter doctor && flutter/bin/flutter pub get",
   "framework": null,
   "rewrites": [
-    { "source": "/app/(.*)", "destination": "/app/index.html" },
-    { "source": "/auth/callback", "destination": "/app/auth/callback/index.html" },
-    { "source": "/setup", "destination": "/app/setup/index.html" },
-    { "source": "/setup/(.*)", "destination": "/app/setup/" }
+    { "source": "/auth/callback", "destination": "/auth/callback/index.html" },
+    { "source": "/setup", "destination": "/setup/index.html" },
+    { "source": "/setup/(.*)", "destination": "/setup/" }
   ],
   "headers": [
     {
