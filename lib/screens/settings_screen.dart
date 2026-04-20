@@ -119,16 +119,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(bottom: 100),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                  const SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
                       child: Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
@@ -523,7 +526,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Text('v${AppConstants.appVersion}',
                     style: Theme.of(context).textTheme.bodySmall),
               ])),
-              ],
+                  ],
+                ),
+              ),
             ),
           ),
         ),

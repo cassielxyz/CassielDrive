@@ -19,14 +19,17 @@ class AccountsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text('Accounts', style: Theme.of(context).textTheme.headlineLarge),
-            ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 800),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text('Accounts', style: Theme.of(context).textTheme.headlineLarge),
+                ),
             const SizedBox(height: 4),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -59,6 +62,8 @@ class AccountsScreen extends StatelessWidget {
                     ),
             ),
           ],
+        ),
+          ),
         ),
       ),
       floatingActionButton: Padding(

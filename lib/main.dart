@@ -159,47 +159,41 @@ class _HomeShellState extends State<HomeShell> with TickerProviderStateMixin {
             ),
           ),
 
-          // Bottom navigation — frosted glassmorphism pill
+          // Top right navigation — frosted glassmorphism pill
           Positioned(
-            left: 0,
-            right: 0,
-            bottom: 76,
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 800),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(24),
-                    child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
-                child: Container(
-                  height: 62,
-                  decoration: BoxDecoration(
-                    color: isDark
-                        ? Colors.white.withAlpha(12)
-                        : Colors.white.withAlpha(200),
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
+            top: 24,
+            right: 24,
+            child: SafeArea(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+                  child: Container(
+                    height: 48,
+                    decoration: BoxDecoration(
                       color: isDark
-                          ? Colors.white.withAlpha(10)
-                          : Colors.black.withAlpha(8),
+                          ? Colors.white.withAlpha(20)
+                          : Colors.white.withAlpha(220),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: isDark
+                            ? Colors.white.withAlpha(15)
+                            : Colors.black.withAlpha(10),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildNavItem(0, Icons.dashboard_rounded, 'Dash'),
+                        _buildNavItem(1, Icons.folder_rounded, 'Files'),
+                        _buildNavItem(2, Icons.lock_rounded, 'Vault'),
+                        _buildNavItem(3, Icons.people_rounded, 'Accts'),
+                        _buildNavItem(4, Icons.person_rounded, 'Me'),
+                      ],
                     ),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                        _buildNavItem(0, Icons.dashboard_rounded, 'Dashboard'),
-                      _buildNavItem(1, Icons.folder_rounded, 'Files'),
-                      _buildNavItem(2, Icons.lock_rounded, 'Vault'),
-                      _buildNavItem(3, Icons.people_rounded, 'Accounts'),
-                      _buildNavItem(4, Icons.person_rounded, 'Profile'),
-                    ],
-                  ),
                 ),
-              ),
-            ),
-          ),
               ),
             ),
           ),

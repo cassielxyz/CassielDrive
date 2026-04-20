@@ -24,31 +24,49 @@ class ProfileScreen extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(bottom: 100),
-          child: Column(
-            children: [
-              const SizedBox(height: 24),
-              // Avatar
-              Container(
-                width: 96, height: 96,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Theme.of(context).primaryColor.withAlpha(77), width: 3),
-                  boxShadow: [BoxShadow(color: Theme.of(context).primaryColor.withAlpha(38), blurRadius: 20)],
-                ),
-                child: ClipOval(
-                  child: user?.avatarUrl != null
-                      ? CachedNetworkImage(imageUrl: user!.avatarUrl!, fit: BoxFit.cover,
-                          placeholder: (_, _) => _avatarPlaceholder(isDark, context),
-                          errorWidget: (_, _, _) => _avatarPlaceholder(isDark, context))
-                      : _avatarPlaceholder(isDark, context),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(user?.displayName ?? 'User',
-                  style: Theme.of(context).textTheme.headlineMedium),
-              const SizedBox(height: 4),
-              Text(user?.email ?? '', style: Theme.of(context).textTheme.bodySmall),
-              const SizedBox(height: 28),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 800),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 24),
+                    // Avatar
+                    Container(
+                      width: 100, height: 100,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Theme.of(context).primaryColor.withAlpha(77), width: 3),
+                        boxShadow: [BoxShadow(color: Theme.of(context).primaryColor.withAlpha(38), blurRadius: 24)],
+                      ),
+                      child: ClipOval(
+                        child: user?.avatarUrl != null
+                            ? CachedNetworkImage(imageUrl: user!.avatarUrl!, fit: BoxFit.cover,
+                                placeholder: (_, _) => _avatarPlaceholder(isDark, context),
+                                errorWidget: (_, _, _) => _avatarPlaceholder(isDark, context))
+                            : _avatarPlaceholder(isDark, context),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(user?.displayName ?? 'User',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        )),
+                    const SizedBox(height: 6),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor.withAlpha(20),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Text(user?.email ?? '', style: TextStyle(
+                        fontSize: 13,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w600,
+                      )),
+                    ),
+                    const SizedBox(height: 32),
 
               // Stats row
               Row(
@@ -121,6 +139,9 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+              ),
+            ),
           ),
         ),
       ),

@@ -20,10 +20,7 @@ class ThemeProvider extends ChangeNotifier {
   final List<Color> availableColors = [
     AppColors.cassielBlue,
     const Color(0xFFE91E63), // Pink
-    const Color(0xFF9C27B0), // Purple
     const Color(0xFF4CAF50), // Green
-    const Color(0xFFFF9800), // Orange
-    const Color(0xFFF44336), // Red
   ];
 
   Future<void> initialize() async {
