@@ -1,91 +1,174 @@
-<div align="center">
-  <img src="website/cassiellogo.png" alt="CassielDrive Logo" width="120" />
-  <br/>
-  <h1><span style="color:#25a7da">CASSIEL</span>DRIVE v2.0</h1>
-  <p><b>Ultimate Google Drive Client for Unlimited Cloud Storage</b></p>
-  <p>A beautifully crafted open-source Flutter client that transforms your Google Drive into a premium, fluid, and limitless cross-platform storage experience.</p>
+<p align="center"><img src="assets/readme-hero.svg" alt="CassielDrive" width="100%"></p>
 
-  <a href="https://cassieldrive.vercel.app/#/home" target="_blank"><img src="https://img.shields.io/badge/Web_App-Live-25a7da?style=for-the-badge&logo=vercel" alt="Live Demo" /></a>
-  <a href="https://github.com/cassielxyz/CassielDrive/releases/latest/download/app-release.apk"><img src="https://img.shields.io/badge/Download-APK-3DDC84?style=for-the-badge&logo=android" alt="Download APK" /></a>
-  <img src="https://img.shields.io/badge/Built_with-Flutter-02569B?style=for-the-badge&logo=flutter" alt="Flutter" />
-  <img src="https://img.shields.io/badge/License-MIT-ff4b4b?style=for-the-badge" alt="License" />
-</div>
+# CassielDrive
 
-<br/>
+**A multi-account Google Drive client that brings files from several Drive accounts into one interface, with search, uploads, storage views and an optional client-side encrypted vault for files you want to protect before upload.**
 
----
+## Why this is useful
 
-<h2 align="center">🌌 Reimagining Cloud Storage</h2>
-<p align="center">
-  CassielDrive isn't just another file manager. It's a visually stunning, highly optimized alternative client for <b>Google Drive</b>. Designed with a pure OLED dark UI, glassmorphism layers, and silky 60-120 FPS transitions, it completely redesigns how you interact with your personal cloud. Watch your files orbit in our signature <b>Storage Galaxy</b> and manage multiple Google Accounts with zero limits.
-</p>
+People often end up with files spread across more than one Google account: a personal account, an old account, a college/work account, or extra accounts created for different projects. Switching browser tabs and remembering where each file lives becomes inconvenient.
 
-## 🌟 Core Features & Architectural Highlights
+CassielDrive is useful for:
 
-### 🚀 Unlimited Cloud Expansion & Account Aggregation
-Most cloud providers trap you in paid tiers once you hit 15GB. CassielDrive solves this by acting as a master unified storage client. It allows you to authenticate and link **an infinite number of Google Drive accounts simultaneously**. The internal architecture abstracts these isolated accounts into a single cohesive UI, allowing you to instantly hop between "Drives" and treat multiple free 15GB limits as one massive, boundless cloud repository.
+- viewing files from multiple connected Google Drive accounts through one application;
+- switching between accounts without treating each Drive as a completely separate experience;
+- searching and organizing files from a single UI;
+- tracking combined storage usage across connected accounts;
+- uploading and downloading files from Android or web builds;
+- optionally encrypting selected vault files on the client before they are sent to cloud storage;
+- learning how OAuth, Google Drive APIs, upload orchestration and local client state can be combined in Flutter.
 
-### 🔒 Military-Grade AES-256 Secure Vault Architecture
-Cloud privacy is a major concern, which is why CassielDrive introduces the **Cassiel Vault**. Rather than relying on standard cloud-side encryption, the app implements true **Zero-Knowledge Architecture**. When you upload a file into the Vault, CassielDrive uses **AES-256 local encryption** running directly on your device's CPU. The file is mathematically scrambled using your private passphrase *before* a single byte is transmitted to Google's servers. Even if your Google account is fully compromised, your files remain completely unreadable without your local Vault key.
+It does **not** create free storage by itself or bypass Google Drive quotas. Each connected account still follows Google's storage limits, API limits and account policies.
 
-### 💻 Widescreen Desktop Optimization & Adaptive UI Constraints
-A common flaw in Flutter web apps is that mobile interfaces awkwardly stretch to fill ultra-wide 4K desktop monitors. CassielDrive solves this natively using intelligent layout architectures. The entire application widget tree wraps its core views in a strict `ConstrainedBox(maxWidth: 800)`. This guarantees that whether you are on a massive 32-inch monitor or a 6-inch Android phone, the UI remains perfectly proportioned, centralized, and visually stunning, providing a premium desktop-class experience.
+## How the storage experience works
 
-### 🧭 Minimalist Floating Navigation Pill
-To maximize the visual real estate for your file grids and folder layouts, we eliminated the bulky, screen-consuming bottom navigation bars typical to Android applications. CassielDrive features a streamlined, non-obtrusive **Top-Right Floating Navigation Pill**. This compact router floats intelligently above your content, giving you instant access to Dashboard, Files, Vault, Accounts, and Settings without eating into your vertical screen space.
+<p align="center"><img src="assets/readme-storage-flow.svg" alt="CassielDrive multi-account storage flow" width="100%"></p>
 
-### 🌌 OLED-Optimized Dynamic Themes & 3D CSS Rendering
-CassielDrive is engineered around a deep-dark, high-contrast palette specifically tailored for OLED displays. This includes frosted glassmorphism containers, neon accents, and fluid 120Hz gesture animations. Furthermore, our standalone promotional website pushes the limits of modern web design with a **pure HTML/CSS 3D device mockup**. By leveraging advanced CSS `transform-style: preserve-3d` properties and keyframe animations, the site realistically renders a floating, rotating 3D phone model—delivering a wildly immersive visual hook without slowing down the page with heavy image assets.
+```text
+Connect Google account(s)
+         |
+         v
+Load file metadata from each Drive
+         |
+         v
+Present files in one CassielDrive interface
+    |          |          |
+    v          v          v
+ search      upload      organize
+    |
+    +--------------------------+
+                               |
+                       optional Vault flow
+                               |
+                               v
+                   encrypt selected file locally
+                               |
+                               v
+                         upload ciphertext
+```
 
+## Main capabilities
 
+| Capability | What it gives the user |
+| --- | --- |
+| Multi-account aggregation | Load files from all connected Drive accounts or a selected account. |
+| Drive browser | Browse folders and files without opening the normal Google Drive UI. |
+| Search | Filter loaded files by name from the application interface. |
+| Upload queue | Queue uploads, show progress, retry failures and select a target account. |
+| Storage overview | Aggregate usage information from connected accounts. |
+| File actions | Download, rename, delete and create folders through the Drive integration. |
+| Organization | Category/statistics utilities and an organizer service for file grouping. |
+| Cassiel Vault | Client-side encryption/decryption path for selected protected files. |
+| Cross-platform UI | Flutter application structure with Android and web targets in the repository. |
 
-## 🛠️ Step-by-Step Setup & Authentication
+## Multi-account behavior
 
-CassielDrive runs strictly on **your own private Google Cloud project credentials**, meaning Google will never throttle your API requests and your data remains entirely in your control.
+The storage provider can load files from one requested account or iterate over all authenticated accounts and combine the results in the client. Each file keeps its Drive-account identity so actions can be sent back to the correct account.
 
-### <span style="color:#25a7da">1. Generate Your Private OAuth Client ID</span>
-1. Navigate to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Create a new project and enable the **Google Drive API** within the Library.
-3. Configure the **OAuth Consent Screen** (Crucial: Add your personal email to the **Test users** list).
-4. Create **OAuth Client ID Credentials**. When prompted for an application type, you must select **Desktop app** *(This allows Android to utilize secure local loopback ports for authentication).*
+This makes CassielDrive an **aggregating client**, not a service that merges Google accounts at the provider level.
 
-### <span style="color:#25a7da">2. Connect Your Accounts</span>
-1. Launch CassielDrive on [Web](https://cassiel-drive-v2.vercel.app/) or natively on your Android phone.
-2. Click the gear icon to open **Settings**.
-3. Input your newly generated Client ID and Client Secret.
-4. Navigate to the **Accounts** tab ("Accts") and tap Add Account.
-5. Authenticate via Google, and enjoy your unlimited, hyper-fast cloud!
+## Vault encryption
 
-## 💻 Build from Source (Developers)
+The repository includes `lib/services/encryption_service.dart`, which currently:
 
-CassielDrive is fully open-source and ready to compile for any environment. Ensure you have the latest version of [Flutter](https://docs.flutter.dev/get-started/install) installed.
+- derives a 256-bit AES key from the supplied password using SHA-256;
+- encrypts data with AES-256-CBC and a random 16-byte IV;
+- prepends the IV to the encrypted output;
+- uses SHA-256 hashing for an integrity-comparison helper;
+- stores a vault-password hash through `flutter_secure_storage`.
+
+This is accurately described as **client-side vault encryption**, not as a formal audited zero-knowledge system.
+
+### Security improvement note
+
+For a production-grade vault, the cryptographic design should be strengthened before making high-assurance security claims. Good next steps include:
+
+- replace direct SHA-256 password derivation with a password KDF such as Argon2id, scrypt or PBKDF2 with a unique salt and suitable work factor;
+- use authenticated encryption such as AES-GCM or ChaCha20-Poly1305 so integrity/authenticity are built into encryption;
+- define a versioned encrypted-file format containing KDF parameters, salt, nonce/IV and algorithm version;
+- add tamper/failure tests and recovery behavior;
+- document key-loss consequences clearly;
+- obtain independent review before describing the vault as high-assurance security.
+
+## Repository structure
+
+```text
+lib/
+├─ core/                 constants, theme and utilities
+├─ models/               accounts, files, chunks and user models
+├─ providers/            auth, storage and theme state
+├─ screens/
+│  ├─ accounts_screen.dart
+│  ├─ dashboard_screen.dart
+│  ├─ login_screen.dart
+│  ├─ settings_screen.dart
+│  └─ vault_screen.dart
+├─ services/
+│  ├─ auth_service*.dart
+│  ├─ drive_service.dart
+│  ├─ encryption_service.dart
+│  ├─ storage_orchestrator.dart
+│  ├─ upload_manager.dart
+│  └─ ai_organizer.dart
+└─ widgets/              file, account, storage and upload UI
+
+web/                     Flutter web/auth/setup assets
+website/                 standalone promotional website
+assets/                  application + README artwork
+```
+
+## Build from source
+
+Install Flutter, clone the repository and restore packages:
 
 ```bash
-# Clone the repository
 git clone https://github.com/cassielxyz/CassielDrive.git
 cd CassielDrive
-
-# Install Flutter dependencies
 flutter pub get
+flutter analyze
+flutter test
+flutter run
+```
 
-# Run the Development Web Server
-flutter run -d web
+Android release build:
 
-# Compile the Android Production APK
+```bash
 flutter build apk --release
 ```
 
-## 🚀 Vercel Web Deployment
+Web build:
 
-This project is structured for seamless automated deployments. CassielDrive supports **Vercel Integration** out of the box. By pushing your code changes to the main branch, Vercel leverages the included `vercel.json` configuration to automatically trigger `flutter build web` and instantly deploy your latest UI updates worldwide.
+```bash
+flutter build web
+```
 
----
+## Google Drive authentication
 
-## 🔍 SEO & Discoverability
-*Keywords:* Google Drive Client, Unlimited Cloud Storage, Flutter File Manager, AES-256 Encryption, Self-Hosted Cloud, Open Source Flutter App, Android Drive App, Web Storage App, CassielDrive, OAuth2 Cloud Integration, Vercel Deployment, Secure Cloud Vault
+CassielDrive uses Google OAuth/Drive API integration. Use your own correctly configured Google Cloud project and OAuth client where required by the current build.
 
-**Hashtags:** #GoogleDrive #CloudStorage #FlutterDev #OpenSource #AESEncryption #Privacy #WebDeployment #AndroidApp #UIUXDesign #CassielDrive
+Keep OAuth client secrets, refresh tokens and account/session material out of Git. Browser builds have different OAuth security constraints than installed applications, so configure each platform using Google's supported OAuth flow rather than copying secrets into public frontend code.
 
-  <br/>
-  <small>Open Source � Transparent � Limitless</small>
-</div>
+## Security and privacy notes
+
+- Google Drive remains the underlying storage provider for normal files.
+- Connecting multiple accounts does not combine or bypass their provider quotas.
+- OAuth tokens and refresh/session material should be treated as secrets.
+- Client-side vault encryption protects only the files actually passed through that vault flow.
+- Do not call the current vault "military-grade" or "zero knowledge" without a formal design/audit supporting those terms.
+- Treat cloud filenames and metadata as untrusted input.
+- Validate external URLs and downloaded files before opening them.
+- Remove build/debug artifacts and sensitive local state before publishing releases.
+
+## Product directions
+
+Useful future work includes stronger vault cryptography, conflict-safe multi-account search, explicit per-file account labels, background sync, duplicate detection, upload-session persistence, account health indicators, quota-aware target selection, encrypted backup/restore of local settings, and integration tests against Google Drive test accounts.
+
+## Topics and tags
+
+`google-drive` · `cloud-storage` · `multi-account` · `file-manager` · `flutter` · `dart` · `google-drive-api` · `oauth2` · `file-upload` · `encrypted-vault` · `android` · `flutter-web` · `personal-cloud`
+
+## Suggested GitHub About description
+
+> Multi-account Google Drive client for browsing, searching and uploading files from one Flutter interface, with an optional client-side encrypted vault for selected files.
+
+<p align="center"><sub>One interface for files spread across several Google Drive accounts.</sub></p>
